@@ -2,9 +2,8 @@ use actix_web::{HttpResponse, Responder, web};
 
 use crate::{
     auth::VerifyIdTokenUseCase,
-    core::api::verify::{
-        error::verify_error::VerifyError, request::verify_request::VerifyRequest,
-        response::verify_response::VerifyResponse,
+    core::{
+        verify_error::VerifyError, verify_request::VerifyRequest, verify_response::VerifyResponse,
     },
 };
 

@@ -4,9 +4,7 @@ use actix_web::{
     dev::{ServiceFactory, ServiceRequest, ServiceResponse},
 };
 
-use crate::{
-    container::Container, core::api::verify::controller::verify_controller::configure_verify_routes,
-};
+use crate::{container::Container, core::configure_verify_routes};
 
 pub fn create_app(
     container: Container,
