@@ -1,9 +1,16 @@
-[package]
-name = "opennccu-sample-backend-rust"
-version = "0.1.0"
-edition = "2024"
+[workspace]
+members = [
+  "core",
+  "crates/auth",
+]
+resolver = "2"
 
-[dependencies]
+[workspace.dependencies]
 actix-web = "4"
+actix-http = "3.10.0"
 async-trait = "0.1.88"
+mockall = "0.13.1"
 serde = { version = "1.0.219", features = ["derive"] }
+
+core.path = "core"
+auth.path = "crates/auth"
