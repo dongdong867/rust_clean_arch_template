@@ -28,6 +28,6 @@ impl VerifyIdTokenUseCase for VerifyIdTokenUseCaseImpl {
         self.auth_repository
             .verify_id_token(id_token)
             .await
-            .map_err(|repository_error| AuthUseCaseError::RepositoryError(repository_error))
+            .map_err(AuthUseCaseError::RepositoryError)
     }
 }

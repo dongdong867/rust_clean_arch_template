@@ -11,6 +11,12 @@ pub struct Container {
     pub verify_id_token_use_case: Arc<dyn VerifyIdTokenUseCase>,
 }
 
+impl Default for Container {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl Container {
     pub fn new() -> Self {
         let auth_service = Arc::new(AuthFirebaseServiceImpl::new());

@@ -9,12 +9,12 @@ pub struct AuthenticatedUserDto {
     pub name: String,
 }
 
-impl Into<AuthenticatedUser> for AuthenticatedUserDto {
-    fn into(self) -> AuthenticatedUser {
+impl From<AuthenticatedUserDto> for AuthenticatedUser {
+    fn from(val: AuthenticatedUserDto) -> Self {
         AuthenticatedUser {
-            id: self.id,
-            email: self.email,
-            name: self.name,
+            id: val.id,
+            email: val.email,
+            name: val.name,
         }
     }
 }

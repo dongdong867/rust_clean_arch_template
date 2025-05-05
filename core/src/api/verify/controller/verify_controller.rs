@@ -14,7 +14,7 @@ pub async fn verify_id_token(
     let result = use_case
         .execute(&req.into_inner().id_token)
         .await
-        .map_err(|error| VerifyError::from(error));
+        .map_err(VerifyError::from);
 
     match result {
         Ok(user) => HttpResponse::Ok().json(VerifyResponse::from(user)),

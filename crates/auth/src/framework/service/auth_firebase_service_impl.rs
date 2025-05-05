@@ -8,6 +8,12 @@ use crate::adapter::{
 #[derive(Clone)]
 pub struct AuthFirebaseServiceImpl {}
 
+impl Default for AuthFirebaseServiceImpl {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl AuthFirebaseServiceImpl {
     pub fn new() -> Self {
         Self {}

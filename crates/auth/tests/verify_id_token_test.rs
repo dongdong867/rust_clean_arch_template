@@ -36,7 +36,7 @@ fn create_mock_service() -> MockAuthService {
         .with(eq(INVALID_ID_TOKEN))
         .return_const(Err(AuthServiceError::InvalidCredentials));
 
-    return mock;
+    mock
 }
 
 fn setup() -> Arc<dyn VerifyIdTokenUseCase> {
