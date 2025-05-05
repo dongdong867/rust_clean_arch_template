@@ -1,6 +1,6 @@
 use crate::application::port::repository::auth_repository_error::AuthRepositoryError;
 
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, PartialEq)]
 pub enum AuthServiceError {
     InvalidCredentials,
 }
