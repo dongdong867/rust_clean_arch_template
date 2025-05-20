@@ -1,4 +1,4 @@
-use crate::application::port::repository::auth_repository_error::AuthRepositoryError;
+use crate::application::port::out::repository::auth_repository_error::AuthRepositoryError;
 
 #[derive(Clone, Debug, PartialEq)]
 pub enum AuthServiceError {

@@ -4,7 +4,7 @@ use async_trait::async_trait;
 
 use crate::{
     AuthenticatedUser, application::error::auth_use_case_error::AuthUseCaseError,
-    application::port::repository::auth_repository::AuthRepository,
+    application::port::out::repository::auth_repository::AuthRepository,
 };
 
 #[async_trait]
