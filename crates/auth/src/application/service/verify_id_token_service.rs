@@ -7,10 +7,7 @@ use crate::{
     application::port::out::repository::auth_repository::AuthRepository,
 };
 
-#[async_trait]
-pub trait VerifyIdTokenUseCase: Send + Sync {
-    async fn execute(&self, id_token: &str) -> Result<AuthenticatedUser, AuthUseCaseError>;
-}
+
 
 pub struct VerifyIdTokenUseCaseImpl {
     auth_repository: Arc<dyn AuthRepository>,
