@@ -1,9 +1,7 @@
-use crate::application::error::auth_use_case_error::AuthUseCaseError;
 use crate::AuthenticatedUser;
-
+use crate::application::error::auth_use_case_error::AuthUseCaseError;
 
 use async_trait::async_trait;
-
 
 #[async_trait]
 pub trait VerifyIdTokenUseCase: Send + Sync {

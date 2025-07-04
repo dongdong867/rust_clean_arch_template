@@ -1,6 +1,6 @@
 use actix_web::{HttpResponse, Responder, web};
 
-use auth::VerifyIdTokenUseCase;
+use auth::application::port::r#in::use_case::verify_id_token_use_case::VerifyIdTokenUseCase;
 
 use crate::api::verify::{
     error::verify_error::VerifyError, request::verify_request::VerifyRequest,

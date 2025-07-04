@@ -3,11 +3,15 @@ use std::sync::Arc;
 use async_trait::async_trait;
 
 use crate::{
-    AuthenticatedUser, application::error::auth_use_case_error::AuthUseCaseError,
-    application::port::out::repository::auth_repository::AuthRepository,
+    AuthenticatedUser,
+    application::{
+        error::auth_use_case_error::AuthUseCaseError,
+        port::{
+            r#in::use_case::verify_id_token_use_case::VerifyIdTokenUseCase,
+            out::repository::auth_repository::AuthRepository,
+        },
+    },
 };
-
-
 
 pub struct VerifyIdTokenUseCaseImpl {
     auth_repository: Arc<dyn AuthRepository>,

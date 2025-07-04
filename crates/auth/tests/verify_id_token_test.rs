@@ -1,7 +1,7 @@
 use std::sync::Arc;
 
 use auth::{
-    AuthenticatedUser, VerifyIdTokenUseCase,
+    AuthenticatedUser,
     adapter::{
         dto::authenticated_user_dto::AuthenticatedUserDto,
         port::service::auth_service_error::AuthServiceError,
@@ -9,8 +9,9 @@ use auth::{
     },
     application::{
         error::auth_use_case_error::AuthUseCaseError,
-        port::repository::auth_repository_error::AuthRepositoryError,
-        use_case::verify_id_token_use_case::VerifyIdTokenUseCaseImpl,
+        port::r#in::use_case::verify_id_token_use_case::VerifyIdTokenUseCase,
+        port::out::repository::auth_repository_error::AuthRepositoryError,
+        service::verify_id_token_service::VerifyIdTokenUseCaseImpl,
     },
 };
 use mock::mock_auth_service::MockAuthService;

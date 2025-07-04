@@ -3,11 +3,11 @@ use std::sync::Arc;
 use async_trait::async_trait;
 
 use crate::{
+    AuthenticatedUser,
     adapter::port::service::auth_service::AuthService,
     application::port::out::repository::{
         auth_repository::AuthRepository, auth_repository_error::AuthRepositoryError,
     },
-    AuthenticatedUser,
 };
 
 #[derive(Clone)]

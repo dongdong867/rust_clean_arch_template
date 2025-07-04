@@ -4,5 +4,5 @@ pub mod domain;
 pub mod framework;
 
 pub use adapter::port::service::auth_service::AuthService;
-pub use application::use_case::verify_id_token_use_case::VerifyIdTokenUseCase;
+pub use application::service::verify_id_token_service::VerifyIdTokenUseCaseImpl;
 pub use domain::entity::authenticated_user::AuthenticatedUser;

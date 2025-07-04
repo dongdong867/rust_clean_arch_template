@@ -1,1 +1,1 @@
-pub mod verify_id_token_use_case;
+pub mod verify_id_token_service;
