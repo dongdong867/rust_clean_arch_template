@@ -7,7 +7,7 @@ pub enum VerifyError {
 impl From<AuthUseCaseError> for VerifyError {
     fn from(error: AuthUseCaseError) -> Self {
         match error {
-            AuthUseCaseError::RepositoryError(_) => VerifyError::InavalidToken,
+            AuthUseCaseError::InvalidIdToken => VerifyError::InavalidToken,
         }
     }
 }

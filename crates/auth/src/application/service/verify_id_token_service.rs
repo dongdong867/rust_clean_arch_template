@@ -3,7 +3,6 @@ use std::sync::Arc;
 use async_trait::async_trait;
 
 use crate::{
-    domain::AuthenticatedUser,
     application::{
         error::auth_use_case_error::AuthUseCaseError,
         port::{
@@ -11,6 +10,7 @@ use crate::{
             out::repository::auth_repository::AuthRepository,
         },
     },
+    domain::AuthenticatedUser,
 };
 
 pub struct VerifyIdTokenUseCaseImpl {
@@ -29,6 +29,6 @@ impl VerifyIdTokenUseCase for VerifyIdTokenUseCaseImpl {
         self.auth_repository
             .verify_id_token(id_token)
             .await
-            .map_err(AuthUseCaseError::RepositoryError)
+            .map_err(|repository_error| repository_error.to_use_case_error())
     }
 }
