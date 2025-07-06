@@ -1,10 +1,10 @@
 use std::sync::Arc;
 
-use auth::application::port::r#in::use_case::verify_id_token_use_case::VerifyIdTokenUseCase;
+use auth::application::port::r#in::VerifyIdTokenUseCase;
 use auth::{
-    adapter::repository::auth_repository_impl::AuthRepositoryImpl,
-    application::service::verify_id_token_service::VerifyIdTokenUseCaseImpl,
-    framework::service::auth_firebase_service_impl::AuthFirebaseServiceImpl,
+    adapter::repository::AuthRepositoryImpl,
+    application::service::VerifyIdTokenUseCaseImpl,
+    framework::external::AuthFirebaseServiceImpl,
 };
 
 #[derive(Clone)]

@@ -1,7 +1,5 @@
-use crate::adapter::dto::authenticated_user_dto::AuthenticatedUserDto;
+use crate::adapter::{dto::authenticated_user_dto::AuthenticatedUserDto, error::AuthServiceError};
 use async_trait::async_trait;
-
-use super::auth_service_error::AuthServiceError;
 
 #[async_trait]
 pub trait AuthService: Send + Sync {

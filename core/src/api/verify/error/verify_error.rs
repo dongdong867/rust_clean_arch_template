@@ -1,4 +1,4 @@
-use auth::application::error::auth_use_case_error::AuthUseCaseError;
+use auth::application::error::AuthUseCaseError;
 
 pub enum VerifyError {
     InavalidToken,

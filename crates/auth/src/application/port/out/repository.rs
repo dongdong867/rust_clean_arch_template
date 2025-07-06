@@ -1,2 +1,2 @@
-pub mod auth_repository;
-pub mod auth_repository_error;
+pub(crate) mod auth_repository;
+pub(crate) mod auth_repository_error;

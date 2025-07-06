@@ -1,4 +1,4 @@
-use auth::AuthenticatedUser;
+use auth::domain::AuthenticatedUser;
 use serde::Serialize;
 
 #[derive(Debug, Serialize)]

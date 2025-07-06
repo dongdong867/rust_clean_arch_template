@@ -1,2 +1,1 @@
-pub mod auth_service;
-pub mod auth_service_error;
+pub(crate) mod auth_service;

@@ -3,7 +3,7 @@ use std::sync::Arc;
 use async_trait::async_trait;
 
 use crate::{
-    AuthenticatedUser,
+    domain::AuthenticatedUser,
     application::{
         error::auth_use_case_error::AuthUseCaseError,
         port::{

@@ -1,8 +1,8 @@
 use async_trait::async_trait;
 
 use crate::adapter::{
-    dto::authenticated_user_dto::AuthenticatedUserDto,
-    port::service::{auth_service::AuthService, auth_service_error::AuthServiceError},
+    dto::authenticated_user_dto::AuthenticatedUserDto, error::AuthServiceError,
+    port::service::auth_service::AuthService,
 };
 
 #[derive(Clone)]

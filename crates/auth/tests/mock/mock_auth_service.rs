@@ -1,7 +1,7 @@
 use async_trait::async_trait;
 use auth::AuthService;
-use auth::adapter::dto::authenticated_user_dto::AuthenticatedUserDto;
-use auth::adapter::port::service::auth_service_error::AuthServiceError;
+use auth::adapter::dto::AuthenticatedUserDto;
+use auth::adapter::error::AuthServiceError;
 use mockall::mock;
 
 mock! {

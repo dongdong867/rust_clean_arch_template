@@ -1,6 +1,6 @@
 use serde::Deserialize;
 
-use crate::AuthenticatedUser;
+use crate::domain::AuthenticatedUser;
 
 #[derive(Clone, Debug, Deserialize, PartialEq)]
 pub struct AuthenticatedUserDto {
