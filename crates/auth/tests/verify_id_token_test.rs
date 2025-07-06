@@ -1,7 +1,9 @@
 use std::sync::Arc;
 
 use auth::{
-    adapter::{dto::AuthenticatedUserDto, error::AuthServiceError, repository::AuthRepositoryImpl},
+    adapter::{
+        dto::AuthenticatedUserDto, error::AuthProviderError, repository::AuthRepositoryImpl,
+    },
     application::{
         error::AuthUseCaseError,
         port::{r#in::VerifyIdTokenUseCase, out::AuthRepositoryError},
@@ -30,7 +32,7 @@ fn create_mock_service() -> MockAuthProvider {
         .return_const(Ok(authenticated_user));
     mock.expect_verify_id_token()
         .with(eq(INVALID_ID_TOKEN))
-        .return_const(Err(AuthServiceError::InvalidCredentials));
+        .return_const(Err(AuthProviderError::InvalidCredentials));
 
     mock
 }
@@ -73,8 +75,5 @@ async fn user_will_received_error_when_id_token_is_invalid() {
         .await
         .unwrap_err();
 
-    assert_eq!(
-        result,
-        AuthUseCaseError::RepositoryError(AuthRepositoryError::InvalidIdToken)
-    );
+    assert_eq!(result, AuthUseCaseError::InvalidIdToken);
 }

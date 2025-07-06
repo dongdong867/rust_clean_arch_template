@@ -3,7 +3,7 @@ use std::sync::Arc;
 use async_trait::async_trait;
 
 use crate::{
-    adapter::port::AuthPort,
+    adapter::port::out::AuthProvider,
     application::port::out::repository::{
         auth_repository::AuthRepository, auth_repository_error::AuthRepositoryError,
     },
@@ -12,11 +12,11 @@ use crate::{
 
 #[derive(Clone)]
 pub struct AuthRepositoryImpl {
-    auth_service: Arc<dyn AuthPort>,
+    auth_service: Arc<dyn AuthProvider>,
 }
 
 impl AuthRepositoryImpl {
-    pub fn new(auth_service: Arc<dyn AuthPort>) -> Self {
+    pub fn new(auth_service: Arc<dyn AuthProvider>) -> Self {
         Self { auth_service }
     }
 }

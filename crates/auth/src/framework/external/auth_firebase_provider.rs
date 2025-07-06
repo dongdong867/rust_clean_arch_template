@@ -1,7 +1,7 @@
 use async_trait::async_trait;
 
 use crate::adapter::{
-    dto::authenticated_user_dto::AuthenticatedUserDto, error::AuthServiceError, port::AuthPort,
+    dto::authenticated_user_dto::AuthenticatedUserDto, error::AuthProviderError, port::out::AuthProvider,
 };
 
 #[derive(Clone)]
@@ -20,11 +20,11 @@ impl AuthFirebaseServiceImpl {
 }
 
 #[async_trait]
-impl AuthPort for AuthFirebaseServiceImpl {
+impl AuthProvider for AuthFirebaseServiceImpl {
     async fn verify_id_token(
         &self,
         id_token: &str,
-    ) -> Result<AuthenticatedUserDto, AuthServiceError> {
+    ) -> Result<AuthenticatedUserDto, AuthProviderError> {
         let authenticated_user_dto = AuthenticatedUserDto {
             id: "user_id".to_string(),
             email: "email".to_string(),
@@ -32,7 +32,7 @@ impl AuthPort for AuthFirebaseServiceImpl {
         };
         match id_token {
             "valid id token" => Ok(authenticated_user_dto),
-            _ => Err(AuthServiceError::InvalidCredentials),
+            _ => Err(AuthProviderError::InvalidCredentials),
         }
     }
 }
@@ -62,7 +62,7 @@ mod test {
 
     #[actix_web::test]
     async fn test_verify_failure() {
-        let expected_error = AuthServiceError::InvalidCredentials;
+        let expected_error = AuthProviderError::InvalidCredentials;
 
         let auth_firebase_service = AuthFirebaseServiceImpl::new();
         let result = auth_firebase_service
