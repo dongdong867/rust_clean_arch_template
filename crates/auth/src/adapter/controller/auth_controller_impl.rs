@@ -7,7 +7,7 @@ use crate::{
         dto::verify_id_token_response::VerifyIdTokenResponse,
         error::auth_controller_error::AuthControllerError, port::r#in::AuthController,
     },
-    application::port::r#in::VerifyIdTokenUseCase,
+    application::port::r#in::{VerifyIdTokenCommand, VerifyIdTokenUseCase},
 };
 
 pub struct AuthControllerImpl {
@@ -30,7 +30,7 @@ impl AuthController for AuthControllerImpl {
     ) -> Result<VerifyIdTokenResponse, AuthControllerError> {
         let result = self
             .verify_id_token_use_case
-            .execute(&_request.id_token)
+            .execute(VerifyIdTokenCommand::new(_request.id_token))
             .await
             .map_err(AuthControllerError::from);
 

@@ -6,7 +6,7 @@ use auth::{
     },
     application::{
         error::AuthUseCaseError,
-        port::{r#in::VerifyIdTokenUseCase, out::AuthRepositoryError},
+        port::r#in::{VerifyIdTokenCommand, VerifyIdTokenUseCase},
         service::VerifyIdTokenUseCaseImpl,
     },
     domain::AuthenticatedUser,
@@ -54,9 +54,10 @@ async fn user_can_get_authenticated_user_with_valid_id_token() {
         email: "user@example.com".to_string(),
         name: "User Name".to_string(),
     };
+
     let verify_id_token_use_case = setup();
     let result = verify_id_token_use_case
-        .execute(VALID_ID_TOKEN)
+        .execute(VerifyIdTokenCommand::new(VALID_ID_TOKEN.to_string()))
         .await
         .unwrap();
 
@@ -64,16 +65,34 @@ async fn user_can_get_authenticated_user_with_valid_id_token() {
 }
 
 #[actix_web::test]
-async fn user_will_received_error_when_id_token_is_invalid() {
+async fn user_will_receive_invalid_id_token_error_when_id_token_is_invalid() {
     // Given user passing a id token to the use case
     // When the id token is invalid
     // Then should return an error
 
     let verify_id_token_use_case = setup();
     let result = verify_id_token_use_case
-        .execute(INVALID_ID_TOKEN)
+        .execute(VerifyIdTokenCommand::new(INVALID_ID_TOKEN.to_string()))
         .await
         .unwrap_err();
 
     assert_eq!(result, AuthUseCaseError::InvalidIdToken);
+}
+
+#[actix_web::test]
+async fn user_will_receive_invalid_input_error_when_id_token_is_empty() {
+    // Given user passing an empty id token to the use case
+    // When the id token is empty
+    // Then should return an error
+
+    let verify_id_token_use_case = setup();
+    let result = verify_id_token_use_case
+        .execute(VerifyIdTokenCommand::new("".to_string()))
+        .await
+        .unwrap_err();
+
+    assert_eq!(
+        result,
+        AuthUseCaseError::InvalidInput("ID token cannot be empty".to_string())
+    );
 }
