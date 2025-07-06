@@ -1,15 +1,15 @@
 use std::sync::Arc;
 
-use auth::application::port::r#in::VerifyIdTokenUseCase;
+use auth::adapter::controller::AuthControllerImpl;
+use auth::adapter::port::r#in::AuthController;
 use auth::{
-    adapter::repository::AuthRepositoryImpl,
-    application::service::VerifyIdTokenUseCaseImpl,
+    adapter::repository::AuthRepositoryImpl, application::service::VerifyIdTokenUseCaseImpl,
     framework::external::AuthFirebaseServiceImpl,
 };
 
 #[derive(Clone)]
 pub struct Container {
-    pub verify_id_token_use_case: Arc<dyn VerifyIdTokenUseCase>,
+    pub auth_controller: Arc<dyn AuthController>,
 }
 
 impl Default for Container {
@@ -24,9 +24,8 @@ impl Container {
         let auth_repository = Arc::new(AuthRepositoryImpl::new(auth_service.clone()));
         let verify_id_token_use_case =
             Arc::new(VerifyIdTokenUseCaseImpl::new(auth_repository.clone()));
+        let auth_controller = Arc::new(AuthControllerImpl::new(verify_id_token_use_case.clone()));
 
-        Self {
-            verify_id_token_use_case,
-        }
+        Self { auth_controller }
     }
 }

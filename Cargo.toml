@@ -9,6 +9,7 @@ resolver = "2"
 actix-web = "4"
 actix-http = "3.10.0"
 async-trait = "0.1.88"
+chrono = "0.4.41"
 mockall = "0.13.1"
 serde = { version = "1.0.219", features = ["derive"] }
 

@@ -4,7 +4,7 @@ use actix_web::{
     dev::{ServiceFactory, ServiceRequest, ServiceResponse},
 };
 
-use crate::{api::configure_verify_routes, container::Container};
+use crate::{api::route::configure_verify_routes, container::Container};
 
 pub fn create_app(
     container: Container,
@@ -18,6 +18,6 @@ pub fn create_app(
     >,
 > {
     App::new()
-        .app_data(container.verify_id_token_use_case.clone())
+        .app_data(container.auth_controller.clone())
         .configure(configure_verify_routes)
 }

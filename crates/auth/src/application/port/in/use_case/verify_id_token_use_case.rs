@@ -1,5 +1,5 @@
-use crate::domain::AuthenticatedUser;
 use crate::application::error::auth_use_case_error::AuthUseCaseError;
+use crate::domain::AuthenticatedUser;
 
 use async_trait::async_trait;
 
