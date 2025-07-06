@@ -9,7 +9,7 @@ use auth::{
     },
     domain::AuthenticatedUser,
 };
-use mock::mock_auth_service::MockAuthService;
+use mock::mock_auth_port::MockAuthProvider;
 use mockall::predicate::*;
 
 mod mock;
@@ -17,14 +17,14 @@ mod mock;
 const VALID_ID_TOKEN: &str = "valid_id_token";
 const INVALID_ID_TOKEN: &str = "invalid_id_token";
 
-fn create_mock_service() -> MockAuthService {
+fn create_mock_service() -> MockAuthProvider {
     let authenticated_user = AuthenticatedUserDto {
         id: "user_id".to_string(),
         email: "user@example.com".to_string(),
         name: "User Name".to_string(),
     };
 
-    let mut mock = MockAuthService::new();
+    let mut mock = MockAuthProvider::new();
     mock.expect_verify_id_token()
         .with(eq(VALID_ID_TOKEN))
         .return_const(Ok(authenticated_user));

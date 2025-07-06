@@ -1,3 +1,3 @@
-pub(crate) mod auth_firebase_service_impl;
+pub(crate) mod auth_firebase_provider;
 
-pub use auth_firebase_service_impl::AuthFirebaseServiceImpl;
+pub use auth_firebase_provider::AuthFirebaseServiceImpl;

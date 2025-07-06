@@ -2,7 +2,7 @@ use crate::adapter::{dto::authenticated_user_dto::AuthenticatedUserDto, error::A
 use async_trait::async_trait;
 
 #[async_trait]
-pub trait AuthService: Send + Sync {
+pub trait AuthPort: Send + Sync {
     async fn verify_id_token(
         &self,
         id_token: &str,

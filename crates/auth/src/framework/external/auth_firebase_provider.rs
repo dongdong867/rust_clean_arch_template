@@ -1,8 +1,7 @@
 use async_trait::async_trait;
 
 use crate::adapter::{
-    dto::authenticated_user_dto::AuthenticatedUserDto, error::AuthServiceError,
-    port::service::auth_service::AuthService,
+    dto::authenticated_user_dto::AuthenticatedUserDto, error::AuthServiceError, port::AuthPort,
 };
 
 #[derive(Clone)]
@@ -21,7 +20,7 @@ impl AuthFirebaseServiceImpl {
 }
 
 #[async_trait]
-impl AuthService for AuthFirebaseServiceImpl {
+impl AuthPort for AuthFirebaseServiceImpl {
     async fn verify_id_token(
         &self,
         id_token: &str,
@@ -40,8 +39,6 @@ impl AuthService for AuthFirebaseServiceImpl {
 
 #[cfg(test)]
 mod test {
-    use crate::AuthService;
-
     use super::*;
 
     const VALID_ID_TOKEN: &str = "valid id token";
