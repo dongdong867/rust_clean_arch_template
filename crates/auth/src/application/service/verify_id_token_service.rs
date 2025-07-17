@@ -31,7 +31,7 @@ impl VerifyIdTokenUseCase for VerifyIdTokenUseCaseImpl {
         &self,
         command: VerifyIdTokenCommand,
     ) -> Result<AuthenticatedUser, AuthUseCaseError> {
-        command.verify().map_err(AuthUseCaseError::InvalidInput)?;
+        command.verify().map_err(|e| e.to_use_case_error())?;
 
         self.auth_repository
             .verify_id_token(&command.id_token)

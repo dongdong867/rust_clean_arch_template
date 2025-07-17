@@ -4,7 +4,7 @@ use async_trait::async_trait;
 
 use crate::{
     adapter::{
-        dto::verify_id_token_response::VerifyIdTokenResponse,
+        dto::{verify_id_token_response::VerifyIdTokenResponse, VerifyIdTokenRequest},
         error::auth_controller_error::AuthControllerError, port::r#in::AuthController,
     },
     application::port::r#in::{VerifyIdTokenCommand, VerifyIdTokenUseCase},
@@ -26,7 +26,7 @@ impl AuthControllerImpl {
 impl AuthController for AuthControllerImpl {
     async fn verify_id_token(
         &self,
-        _request: crate::adapter::dto::VerifyIdTokenRequest,
+        _request: VerifyIdTokenRequest,
     ) -> Result<VerifyIdTokenResponse, AuthControllerError> {
         let result = self
             .verify_id_token_use_case

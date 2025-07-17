@@ -1,16 +1,16 @@
-use std::sync::Arc;
+use std::{iter::empty, sync::Arc};
 
 use auth::{
     adapter::{
-        dto::AuthenticatedUserDto, error::AuthProviderError, repository::AuthRepositoryImpl,
+        controller::AuthControllerImpl,
+        dto::{AuthenticatedUserDto, VerifyIdTokenRequest, VerifyIdTokenResponse},
+        error::{AuthControllerError, AuthProviderError},
+        port::r#in::AuthController,
+        repository::AuthRepositoryImpl,
     },
-    application::{
-        error::AuthUseCaseError,
-        port::r#in::{VerifyIdTokenCommand, VerifyIdTokenUseCase},
-        service::VerifyIdTokenUseCaseImpl,
-    },
-    domain::AuthenticatedUser,
+    application::service::VerifyIdTokenUseCaseImpl,
 };
+use chrono::Utc;
 use mock::mock_auth_port::MockAuthProvider;
 use mockall::predicate::*;
 
@@ -19,7 +19,7 @@ mod mock;
 const VALID_ID_TOKEN: &str = "valid_id_token";
 const INVALID_ID_TOKEN: &str = "invalid_id_token";
 
-fn create_mock_service() -> MockAuthProvider {
+fn create_mock_auth_provider() -> MockAuthProvider {
     let authenticated_user = AuthenticatedUserDto {
         id: "user_id".to_string(),
         email: "user@example.com".to_string(),
@@ -37,10 +37,11 @@ fn create_mock_service() -> MockAuthProvider {
     mock
 }
 
-fn setup() -> Arc<dyn VerifyIdTokenUseCase> {
-    let auth_service = Arc::new(create_mock_service());
+fn setup() -> Arc<dyn AuthController> {
+    let auth_service = Arc::new(create_mock_auth_provider());
     let auth_repository = Arc::new(AuthRepositoryImpl::new(auth_service));
-    Arc::new(VerifyIdTokenUseCaseImpl::new(auth_repository))
+    let verify_id_token_use_case = Arc::new(VerifyIdTokenUseCaseImpl::new(auth_repository.clone()));
+    Arc::new(AuthControllerImpl::new(verify_id_token_use_case))
 }
 
 #[actix_web::test]
@@ -49,19 +50,27 @@ async fn user_can_get_authenticated_user_with_valid_id_token() {
     // When the id token is valid
     // Then should return an authenticated user object
 
-    let expected_user = AuthenticatedUser {
+    let test_start_timestamp = Utc::now().timestamp();
+
+    let expected_response = VerifyIdTokenResponse {
         id: "user_id".to_string(),
         email: "user@example.com".to_string(),
         name: "User Name".to_string(),
+        timestamp: Utc::now().timestamp(),
     };
 
-    let verify_id_token_use_case = setup();
-    let result = verify_id_token_use_case
-        .execute(VerifyIdTokenCommand::new(VALID_ID_TOKEN.to_string()))
-        .await
-        .unwrap();
+    let auth_controller = setup();
+    let request = VerifyIdTokenRequest {
+        id_token: VALID_ID_TOKEN.to_string(),
+    };
 
-    assert_eq!(result, expected_user);
+    let result = auth_controller.verify_id_token(request).await.unwrap();
+
+    assert_eq!(result.id, expected_response.id);
+    assert_eq!(result.email, expected_response.email);
+    assert_eq!(result.name, expected_response.name);
+    assert!(test_start_timestamp <= result.timestamp);
+    assert!(result.timestamp <= Utc::now().timestamp())
 }
 
 #[actix_web::test]
@@ -70,13 +79,14 @@ async fn user_will_receive_invalid_id_token_error_when_id_token_is_invalid() {
     // When the id token is invalid
     // Then should return an error
 
-    let verify_id_token_use_case = setup();
-    let result = verify_id_token_use_case
-        .execute(VerifyIdTokenCommand::new(INVALID_ID_TOKEN.to_string()))
-        .await
-        .unwrap_err();
+    let auth_controller = setup();
+    let request = VerifyIdTokenRequest {
+        id_token: INVALID_ID_TOKEN.to_string(),
+    };
 
-    assert_eq!(result, AuthUseCaseError::InvalidIdToken);
+    let result = auth_controller.verify_id_token(request).await.unwrap_err();
+
+    assert_eq!(result, AuthControllerError::InvalidToken);
 }
 
 #[actix_web::test]
@@ -85,14 +95,18 @@ async fn user_will_receive_invalid_input_error_when_id_token_is_empty() {
     // When the id token is empty
     // Then should return an error
 
-    let verify_id_token_use_case = setup();
-    let result = verify_id_token_use_case
-        .execute(VerifyIdTokenCommand::new("".to_string()))
-        .await
-        .unwrap_err();
+    let empty_id_token = "";
+    let expected_error_message = "ID token cannot be empty";
+
+    let auth_controller = setup();
+    let request = VerifyIdTokenRequest {
+        id_token: empty_id_token.to_string(),
+    };
+
+    let result = auth_controller.verify_id_token(request).await.unwrap_err();
 
     assert_eq!(
         result,
-        AuthUseCaseError::InvalidInput("ID token cannot be empty".to_string())
+        AuthControllerError::InvalidInput(expected_error_message.to_string())
     );
 }

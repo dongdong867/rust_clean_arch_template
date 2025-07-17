@@ -1,3 +1,5 @@
+use crate::application::error::VerifyIdTokenCommandError;
+
 #[derive(Debug)]
 pub struct VerifyIdTokenCommand {
     pub id_token: String,
@@ -8,9 +10,9 @@ impl VerifyIdTokenCommand {
         Self { id_token }
     }
 
-    pub fn verify(&self) -> Result<(), String> {
+    pub fn verify(&self) -> Result<(), VerifyIdTokenCommandError> {
         if self.id_token.trim().is_empty() {
-            Err("ID token cannot be empty".to_string())
+            Err(VerifyIdTokenCommandError::EmptyToken)
         } else {
             Ok(())
         }
