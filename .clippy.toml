@@ -1,0 +1,12 @@
+allow-expect-in-consts = false
+allow-mixed-uninlined-format-args = false
+allow-print-in-tests = true
+allow-unwrap-in-consts = false
+check-inconsistent-struct-field-initializers = true
+check-private-items = true
+enforce-iter-loop-reborrow = true
+lint-commented-code = true
+module-items-ordered-within-groupings = "all"
+single-char-binding-names-threshold = 2
+suppress-restriction-lint-in-const = true
+too-many-lines-threshold = 40
