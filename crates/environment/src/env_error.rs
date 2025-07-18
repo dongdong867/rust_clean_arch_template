@@ -2,5 +2,5 @@
 pub enum EnvError {
     FileNotExist,
     KeyNotFound(String),
-    UnexpectedMode
+    UnexpectedMode,
 }

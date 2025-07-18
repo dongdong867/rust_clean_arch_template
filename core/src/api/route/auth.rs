@@ -1,8 +1,7 @@
 use actix_web::{HttpResponse, Responder, web};
-
-use auth::adapter::{
-    dto::VerifyIdTokenRequest, error::AuthControllerError, port::r#in::AuthController,
-};
+use auth::adapter::dto::VerifyIdTokenRequest;
+use auth::adapter::error::AuthControllerError;
+use auth::adapter::port::r#in::AuthController;
 
 pub async fn verify_id_token(
     controller: web::Data<dyn AuthController>,
@@ -15,10 +14,10 @@ pub async fn verify_id_token(
         Err(error) => match error {
             AuthControllerError::InvalidToken => {
                 HttpResponse::Unauthorized().json("Invalid token.".to_string())
-            }
+            },
             AuthControllerError::InvalidInput(error_message) => {
                 HttpResponse::Forbidden().json(error_message)
-            }
+            },
         },
     }
 }

@@ -1,17 +1,14 @@
-use auth::{
-    adapter::{
-        controller::AuthControllerImpl,
-        dto::{AuthenticatedUserDto, VerifyIdTokenRequest, VerifyIdTokenResponse},
-        error::{AuthControllerError, AuthProviderError},
-        port::r#in::AuthController,
-        repository::AuthRepositoryImpl,
-    },
-    application::service::VerifyIdTokenUseCaseImpl,
-};
+use std::sync::Arc;
+
+use auth::adapter::controller::AuthControllerImpl;
+use auth::adapter::dto::{AuthenticatedUserDto, VerifyIdTokenRequest, VerifyIdTokenResponse};
+use auth::adapter::error::{AuthControllerError, AuthProviderError};
+use auth::adapter::port::r#in::AuthController;
+use auth::adapter::repository::AuthRepositoryImpl;
+use auth::application::service::VerifyIdTokenUseCaseImpl;
 use chrono::Utc;
 use mock::mock_auth_port::MockAuthProvider;
 use mockall::predicate::*;
-use std::sync::Arc;
 
 mod mock;
 

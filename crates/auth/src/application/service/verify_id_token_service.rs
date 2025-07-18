@@ -2,27 +2,18 @@ use std::sync::Arc;
 
 use async_trait::async_trait;
 
-use crate::{
-    application::{
-        error::auth_use_case_error::AuthUseCaseError,
-        port::{
-            r#in::{
-                VerifyIdTokenCommand, use_case::verify_id_token_use_case::VerifyIdTokenUseCase,
-            },
-            out::repository::auth_repository::AuthRepository,
-        },
-    },
-    domain::AuthenticatedUser,
-};
+use crate::application::error::auth_use_case_error::AuthUseCaseError;
+use crate::application::port::r#in::VerifyIdTokenCommand;
+use crate::application::port::r#in::use_case::verify_id_token_use_case::VerifyIdTokenUseCase;
+use crate::application::port::out::repository::auth_repository::AuthRepository;
+use crate::domain::AuthenticatedUser;
 
 pub struct VerifyIdTokenUseCaseImpl {
     auth_repository: Arc<dyn AuthRepository>,
 }
 
 impl VerifyIdTokenUseCaseImpl {
-    pub fn new(auth_repository: Arc<dyn AuthRepository>) -> Self {
-        Self { auth_repository }
-    }
+    pub fn new(auth_repository: Arc<dyn AuthRepository>) -> Self { Self { auth_repository } }
 }
 
 #[async_trait]

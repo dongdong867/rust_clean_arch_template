@@ -2,10 +2,9 @@ use std::sync::Arc;
 
 use auth::adapter::controller::AuthControllerImpl;
 use auth::adapter::port::r#in::AuthController;
-use auth::{
-    adapter::repository::AuthRepositoryImpl, application::service::VerifyIdTokenUseCaseImpl,
-    framework::external::AuthFirebaseServiceImpl,
-};
+use auth::adapter::repository::AuthRepositoryImpl;
+use auth::application::service::VerifyIdTokenUseCaseImpl;
+use auth::framework::external::AuthFirebaseServiceImpl;
 
 #[derive(Clone)]
 pub struct Container {
@@ -13,9 +12,7 @@ pub struct Container {
 }
 
 impl Default for Container {
-    fn default() -> Self {
-        Self::new()
-    }
+    fn default() -> Self { Self::new() }
 }
 
 impl Container {

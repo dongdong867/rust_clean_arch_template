@@ -1,22 +1,18 @@
 use async_trait::async_trait;
 
-use crate::adapter::{
-    dto::authenticated_user_dto::AuthenticatedUserDto, error::AuthProviderError, port::out::AuthProvider,
-};
+use crate::adapter::dto::authenticated_user_dto::AuthenticatedUserDto;
+use crate::adapter::error::AuthProviderError;
+use crate::adapter::port::out::AuthProvider;
 
 #[derive(Clone)]
 pub struct AuthFirebaseServiceImpl {}
 
 impl Default for AuthFirebaseServiceImpl {
-    fn default() -> Self {
-        Self::new()
-    }
+    fn default() -> Self { Self::new() }
 }
 
 impl AuthFirebaseServiceImpl {
-    pub fn new() -> Self {
-        Self {}
-    }
+    pub fn new() -> Self { Self {} }
 }
 
 #[async_trait]

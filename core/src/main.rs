@@ -1,8 +1,9 @@
+use core::container;
+use core::create_app::create_app;
 use std::io;
 
 use actix_web::HttpServer;
 use container::Container;
-use core::{container, create_app::create_app};
 
 #[actix_web::main]
 async fn main() -> io::Result<()> {

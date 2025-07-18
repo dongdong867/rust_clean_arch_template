@@ -10,7 +10,7 @@ impl VerifyIdTokenCommandError {
         match self {
             VerifyIdTokenCommandError::EmptyToken => {
                 AuthUseCaseError::InvalidInput("ID token cannot be empty".to_string())
-            }
+            },
         }
     }
 }

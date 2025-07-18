@@ -12,7 +12,7 @@ impl From<AuthUseCaseError> for AuthControllerError {
             AuthUseCaseError::InvalidIdToken => AuthControllerError::InvalidToken,
             AuthUseCaseError::InvalidInput(error_message) => {
                 AuthControllerError::InvalidInput(error_message)
-            }
+            },
         }
     }
 }

@@ -2,13 +2,11 @@ use std::sync::Arc;
 
 use async_trait::async_trait;
 
-use crate::{
-    adapter::{
-        dto::{verify_id_token_response::VerifyIdTokenResponse, VerifyIdTokenRequest},
-        error::auth_controller_error::AuthControllerError, port::r#in::AuthController,
-    },
-    application::port::r#in::{VerifyIdTokenCommand, VerifyIdTokenUseCase},
-};
+use crate::adapter::dto::VerifyIdTokenRequest;
+use crate::adapter::dto::verify_id_token_response::VerifyIdTokenResponse;
+use crate::adapter::error::auth_controller_error::AuthControllerError;
+use crate::adapter::port::r#in::AuthController;
+use crate::application::port::r#in::{VerifyIdTokenCommand, VerifyIdTokenUseCase};
 
 pub struct AuthControllerImpl {
     verify_id_token_use_case: Arc<dyn VerifyIdTokenUseCase>,
