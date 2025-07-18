@@ -1,5 +1,3 @@
-use std::{iter::empty, sync::Arc};
-
 use auth::{
     adapter::{
         controller::AuthControllerImpl,
@@ -13,6 +11,7 @@ use auth::{
 use chrono::Utc;
 use mock::mock_auth_port::MockAuthProvider;
 use mockall::predicate::*;
+use std::sync::Arc;
 
 mod mock;
 
