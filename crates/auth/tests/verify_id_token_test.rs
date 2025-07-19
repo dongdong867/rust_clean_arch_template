@@ -42,8 +42,8 @@ fn setup() -> Arc<dyn AuthController> {
 
 #[actix_web::test]
 async fn user_can_get_authenticated_user_with_valid_id_token() {
-    // Given user passing a id token to the use case
-    // When the id token is valid
+    // Given user passing a ID token when request
+    // When the ID token is valid
     // Then should return an authenticated user object
 
     let test_start_timestamp = Utc::now().timestamp();
@@ -71,9 +71,9 @@ async fn user_can_get_authenticated_user_with_valid_id_token() {
 
 #[actix_web::test]
 async fn user_will_receive_invalid_id_token_error_when_id_token_is_invalid() {
-    // Given user passing a id token to the use case
-    // When the id token is invalid
-    // Then should return an error
+    // Given user passing a ID token
+    // When the ID token is invalid
+    // Then should return an invalid ID token error
 
     let auth_controller = setup();
     let request = VerifyIdTokenRequest {
@@ -87,8 +87,8 @@ async fn user_will_receive_invalid_id_token_error_when_id_token_is_invalid() {
 
 #[actix_web::test]
 async fn user_will_receive_invalid_input_error_when_id_token_is_empty() {
-    // Given user passing an empty id token to the use case
-    // When the id token is empty
+    // Given user passing an empty ID token
+    // When the ID token is empty
     // Then should return an error
 
     let empty_id_token = "";
