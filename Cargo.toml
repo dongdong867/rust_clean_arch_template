@@ -2,7 +2,8 @@
 members = [
   "core",
   "crates/auth",
-  "crates/environment"
+  "crates/environment",
+  "crates/post"
 ]
 resolver = "2"
 
@@ -18,3 +19,4 @@ serde = { version = "1.0.219", features = ["derive"] }
 core.path = "core"
 auth.path = "crates/auth"
 environment.path = "crates/environment"
+post.path = "crates/post"

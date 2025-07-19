@@ -1,0 +1,14 @@
+[package]
+name = "post"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+actix-web.workspace = true
+actix-http.workspace = true
+async-trait.workspace = true
+chrono.workspace = true
+serde.workspace = true
+
+[dev-dependencies]
+mockall.workspace = true
